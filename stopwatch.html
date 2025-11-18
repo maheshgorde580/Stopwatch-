@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stopwatch</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #c3ecf5, #e3f6ff);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stopwatch-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    .time-display {
+      font-size: 48px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .controls button {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: not-allowed; /* Since buttons are non-functional */
+      opacity: 0.6;
+    }
+
+    .start-btn {
+      background-color: #34d399;
+    }
+
+    .stop-btn {
+      background-color: #f87171;
+    }
+
+    .reset-btn {
+      background-color: #60a5fa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stopwatch-container">
+    <div class="time-display">00:00:00</div>
+    <div class="controls">
+      <button class="start-btn" onclick="start()">Start</button>
+      <button class="stop-btn" onclick="stop()">Stop</button>
+      <button class="reset-btn" onclick="reset()">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    let divr=document.querySelectorAll("div")
+    let btnr=document.getElementsByTagName("button")
+    let c=0,m=0, h=0,iid=-1
+    function inc()
+    {
+        c++
+        if(c==60)
+    {
+        m++
+        c=0
+    }
+        if(m==60)
+    {
+        h++
+        m=0
+        c=0
+    }
+        divr[1].innerHTML=(h<10?"0"+h : h)+":"+(m<10?"0"+m : m)+":"+(c<10?"0"+c : c)
+    }
+    function start()
+    {
+        if(iid==-1)
+    {
+        
+        iid=setInterval(inc,10)
+    }
+    }
+    function stop()
+    {
+        clearInterval(iid)
+        iid=-1
+    }
+    function reset()
+    {
+      c=0
+      m=0
+      divr[1].innerHTML="00:00:00"
+      clearInterval(iid)
+      iid=-1
+    }
+  </script>
+</body>
+</html>
